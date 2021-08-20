@@ -42,6 +42,7 @@ const AppView = ({ refetchUser, user }) => {
         refetchTasks={refetch}
         tasks={data ? data.getAssignedTasks : undefined}
         loading={loading ? loading : undefined}
+        user={user}
       />
       <div className="flex" >
       <AddTask refetchTasks={refetch} user={user} />
