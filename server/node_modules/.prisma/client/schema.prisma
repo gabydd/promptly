@@ -1,0 +1,62 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Event {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String
+  startTime   DateTime
+  endTime     DateTime
+  attendees   User[]   @relation("EventAttendees")
+  manager     User     @relation(name: "ManagingEvents", fields: [managerId], references: [id])
+  managerId   Int
+  project     Project? @relation(fields: [projectId], references: [id])
+  projectId   Int?
+}
+
+model Project {
+  id          Int     @id @default(autoincrement())
+  name        String
+  description String
+  tasks       Task[]
+  events      Event[]
+  members     User[]  @relation("ProjectMembers")
+  manager     User    @relation(name: "ManagingProjects", fields: [managerId], references: [id])
+  managerId   Int
+}
+
+model User {
+  id               Int       @id @default(autoincrement())
+  email            String    @unique
+  password         String
+  name             String
+  tasks            Task[]    @relation("AssignedTasks")
+  tasksManaging    Task[]    @relation("ManagingTasks")
+  projects         Project[] @relation("ProjectMembers")
+  projectsManaging Project[] @relation("ManagingProjects")
+  events           Event[]   @relation("EventAttendees")
+  eventsManaging   Event[]   @relation("ManagingEvents")
+  connections      User[]    @relation("Connections", references: [id])
+  connectsToUser   User[]    @relation("Connections", references: [id])
+  resetToken       String?
+}
+
+model Task {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String
+  urgent      Boolean
+  completed   Boolean
+  date        DateTime
+  assignees   User[]   @relation("AssignedTasks")
+  manager     User     @relation(name: "ManagingTasks", fields: [managerId], references: [id])
+  managerId   Int
+  project     Project? @relation(fields: [projectId], references: [id])
+  projectId   Int?
+}
