@@ -1,6 +1,14 @@
 import { Field, ErrorMessage } from "formik";
 
-const FormFields = ({ label, name, type, children, list }) => {
+type FormProps = {
+  label: string
+  name: string
+  type?: string
+  children?: any
+  list?: any
+}
+
+const FormFields = ({ label, name, type, children, list }: FormProps) => {
   return (
     <div className="mb-4 flex flex-col">
       <label htmlFor={name} className="font-bold text-indigo-600 mr-2">
@@ -9,7 +17,7 @@ const FormFields = ({ label, name, type, children, list }) => {
       <Field
         name={name}
         type={type !== "textarea" && type !== "select" ? type : undefined}
-        as={(type === "textarea") | (type === "select") ? type : undefined}
+        as={(type === "textarea") || (type === "select") ? type : undefined}
         className="rounded focus:outline-none focus:ring"
         children={type === "select" ? children : undefined}
         list={list ? list : undefined}

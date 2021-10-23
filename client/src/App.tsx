@@ -1,7 +1,8 @@
 import { gql, useQuery } from "@apollo/client";
 import { BrowserRouter as Router, Redirect, Route } from "react-router-dom";
+import { UserTypeData } from "./types";
 import AppView from "./views/AppView";
-import AuthView from "./views/AuthView";
+import AuthView from "./views/auth/AuthView";
 
 const GET_USER = gql`
   query GetUser {
@@ -20,17 +21,16 @@ const GET_USER = gql`
     }
   }
 `;
-
 function App() {
-  const { loading, data, refetch} = useQuery(GET_USER);
-  if (loading) return "Logging in...";
+  const { loading, data, refetch} = useQuery<UserTypeData>(GET_USER);
+  if (loading) return <>"Logging in..."</>;
   return (
     <Router>
       <Route path="/" exact>
-        {data.getUser ? <AppView refetchUser={refetch} user={data.getUser} /> : <Redirect to="/auth" />}
+        {data!.getUser ? <AppView refetchUser={refetch} user={data!.getUser} /> : <Redirect to="/auth" />}
       </Route>
       <Route path="/auth">
-        {data.getUser ? <Redirect to="/" /> : <AuthView refetchUser={refetch} />}
+        {data!.getUser ? <Redirect to="/" /> : <AuthView refetchUser={refetch} />}
       </Route>
     </Router>
   );

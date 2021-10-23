@@ -17,7 +17,7 @@ async function startServer() {
 
     context: ({ req, res }) => {
       const token = req.cookies.token;
-      const user = token ? jwt.verify(token, process.env.secret) : null;
+      const user = token ? jwt.verify(token, process.env.secret || "this-is-a-fallback-secret-change-it") : null;
       return { user, res };
     },
   });

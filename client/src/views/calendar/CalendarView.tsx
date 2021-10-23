@@ -1,6 +1,10 @@
 import DayView from "./DayView";
 
-const Calendar = ({ date }) => {
+type CalendarProps = {
+  date: Date
+}
+
+const Calendar = ({ date }: CalendarProps) => {
   const year = date.getFullYear();
   const month = date.getMonth();
   const daysInMonth = [
@@ -19,7 +23,7 @@ const Calendar = ({ date }) => {
   ];
   const firstDay = new Date(year, month, 1).getDay();
   const lastDay = new Date(year, month, daysInMonth[month]).getDay();
-  const fillDays = (month) => {
+  const fillDays = (month: number) => {
     let topArray = [];
     let middleArray = [];
     let bottomArray = [];

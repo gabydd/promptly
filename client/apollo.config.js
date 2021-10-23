@@ -1,7 +1,7 @@
 module.exports = {
     client: {
         service: {
-            url: 'https://www.planpromptly.ca/graphql'
+            url: 'http://localhost:4000/graphql'
         }
     }
 }

@@ -1,9 +1,10 @@
 import { Route } from "react-router-dom";
+import { RefetchUserProps } from "../../types";
 import ForgotView from "./ForgotView";
 import LoginView from "./LoginView";
 import SignUpView from "./SignUpView";
 
-const AuthView = ({ refetchUser }) => {
+const AuthView = ({ refetchUser }: RefetchUserProps) => {
   return (
     <div>
       <Route exact path="/auth">
