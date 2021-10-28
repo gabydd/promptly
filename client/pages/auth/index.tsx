@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useUser } from "../../lib/context";
 import LoginView from "../../views/auth/Login";
 import SignUp from "../../views/auth/SignUp";
+import Loading from "../../components/Loading"
 const Auth: NextPage = (props) => {
   const value = useUser();
   const { push } = useRouter();
@@ -14,7 +15,7 @@ const Auth: NextPage = (props) => {
   }, [value, push]);
 
   if (!value || value.loading) {
-    return <>Loading...</>;
+    return <Loading/>;
   }
 
   return (

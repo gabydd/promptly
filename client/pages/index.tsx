@@ -2,10 +2,14 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useUser } from "../lib/context";
 import NavLink from "../components/NavLink";
+import Loading from "../components/Loading"
 
 const Home = () => {
   const value = useUser();
   const { push } = useRouter();
+  if (!value || value.loading) {
+     return <Loading/>
+  }
   useEffect(() => {
     if (!value?.user) {
       push("/auth");
