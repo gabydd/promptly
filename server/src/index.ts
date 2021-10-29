@@ -6,7 +6,6 @@ import cookieParser from "cookie-parser";
 import { typeDefs, resolvers } from "./schema.js";
 import path from "path";
 import jwt from "jsonwebtoken";
-import cors from "cors";
 
 const sitePath = path.join(path.resolve(), "..", "client", "build");
 
