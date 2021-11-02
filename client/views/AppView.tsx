@@ -1,7 +1,7 @@
 import { useState } from "react";
-import Calendar from "./calendar/CalendarView";
+import Calendar from "../components/calendar/Calendar";
 import AddTask from "./tasks/AddTask";
-import ViewSelector from "./ViewSelector";
+import DateSelector from "../components/calendar/DateSelector";
 import { useQuery } from "@apollo/client";
 import TasksView from "./tasks/TasksView";
 import { ConnectionsView } from "./ConnectionsView";
@@ -31,7 +31,7 @@ const AppView = ({ refetchUser, user }: CompleteUserProps) => {
   return (
     <div className="bg-gray-100">
       <button onClick={logOut}>Log Out</button>
-      <ViewSelector date={date} setDate={setDate} />
+      <DateSelector date={date} setDate={setDate} />
       <Calendar date={date} />
       <TasksView
         refetchTasks={refetchTasks}

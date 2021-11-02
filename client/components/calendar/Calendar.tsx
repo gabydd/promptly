@@ -1,4 +1,4 @@
-import DayView from "./DayView";
+import DayView from "./Day";
 
 type CalendarProps = {
   date: Date
@@ -28,8 +28,8 @@ const Calendar = ({ date }: CalendarProps) => {
     let middleArray = [];
     let bottomArray = [];
     for (
-      let day = daysInMonth[month - 1] - firstDay +2;
-      day < daysInMonth[month - 1] +1;
+      let day = daysInMonth[month - 1] - firstDay + 2;
+      day < daysInMonth[month - 1] + 1;
       day++
     ) {
       topArray.push(day);

@@ -1,7 +1,7 @@
 import { SetStateAction, useState } from "react";
-import { ViewSelectorType } from "../lib/types";
+import { ViewSelectorType } from "../../lib/types";
 
-const ViewSelector = ({ date, setDate }: ViewSelectorType) => {
+const DateSelector = ({ date, setDate }: ViewSelectorType) => {
   const [value, setValue] = useState(
     `${date.getFullYear()}-${
       date.getMonth() < 9 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1
@@ -27,4 +27,4 @@ const ViewSelector = ({ date, setDate }: ViewSelectorType) => {
   );
 };
 
-export default ViewSelector;
+export default DateSelector;
