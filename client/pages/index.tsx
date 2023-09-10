@@ -5,6 +5,13 @@ import NavLink from "../components/NavLink";
 import Loading from "../components/Loading";
 import Calendar from "../components/calendar/Calendar";
 import DateSelector from "../components/calendar/DateSelector";
+import TasksView from "../views/tasks/TasksView";
+import AddTask from "../views/tasks/AddTask";
+import AddEvent from "../views/events/AddEvent";
+import { ConnectionsView } from "../views/ConnectionsView";
+import { useQuery } from "@apollo/client";
+import { TaskTypeData } from "../lib/types";
+import { GET_EVENTS, GET_TASKS } from "../lib/queries";
 
 const Home = () => {
   const value = useUser();
@@ -16,6 +23,16 @@ const Home = () => {
       push("/auth");
     }
   }, [value, push]);
+  const {
+    loading: tasksLoading,
+    data: tasks,
+    refetch: refetchTasks,
+  } = useQuery<TaskTypeData>(GET_TASKS);
+  const {
+    loading: eventsLoading,
+    data: events,
+    refetch: refetchEvents,
+  } = useQuery(GET_EVENTS);
   const logOut = () => {
     document.cookie = "token=; expires=0";
     value?.refetchUser();
@@ -45,6 +62,17 @@ const Home = () => {
 
       <DateSelector date={date} setDate={setDate} />
       <Calendar date={date} />
+      <TasksView
+        refetchTasks={refetchTasks}
+        tasks={tasks ? tasks.getAssignedTasks : undefined}
+        loading={tasksLoading ? tasksLoading : undefined}
+        user={value.user!}
+      />
+      <div className="flex">
+        <AddTask refetchTasks={refetchTasks} user={value.user!} />
+        <AddEvent refetchEvents={refetchEvents} user={value.user!} />
+        <ConnectionsView refetchUser={value.refetchUser} user={value.user!} />
+      </div>
     </div>
   );
 };

@@ -42,8 +42,8 @@ model User {
   projectsManaging Project[] @relation("ManagingProjects")
   events           Event[]   @relation("EventAttendees")
   eventsManaging   Event[]   @relation("ManagingEvents")
-  connections      User[]    @relation("Connections", references: [id])
-  connectsToUser   User[]    @relation("Connections", references: [id])
+  connections      User[]    @relation("Connections")
+  connectsToUser   User[]    @relation("Connections")
   resetToken       String?
 }
 
